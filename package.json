@@ -5,17 +5,30 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.14.12",
+    "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.4",
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"
+  },
+  "dependencies": {
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "@types/codemirror": "^5.60.15",
+    "codemirror": "^6.0.1",
+    "html-loader": "^5.1.0",
+    "rxjs": "^7.8.1"
   }
 }
