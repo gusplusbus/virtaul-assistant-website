@@ -4,73 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animated Assistant with Code Editor</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #282c34;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 5fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 10px;
-            width: 90%;
-            height: 90%;
-        }
-
-        .block-large {
-            grid-column: 1;
-            grid-row: 1 / span 2;
-        }
-
-        .block-small-top {
-            grid-column: 2;
-            grid-row: 1;
-        }
-
-        .block-small-bottom {
-            grid-column: 2;
-            grid-row: 2;
-            position: relative;
-            padding: 10px;
-        }
-
-        .cm-editor {
-            font-size: 16px; /* Set font size to 24px */
-        }
-
-        #code {
-            height: 100%;
-            width: 100%;
-        }
-
-        #assistantCanvas {
-            position: absolute;
-            bottom: -40px;
-            right: 10px;
-            max-width: calc(100% - 20px);
-            max-height: calc(100% - 20px);
-        }
-    </style>
+    <link href="https://unpkg.com/tailwindcss@^2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/@codemirror/basic-setup@latest/dist/basic-setup.min.css">
     <link rel="stylesheet" href="https://unpkg.com/@codemirror/theme-one-dark@latest/dist/theme-one-dark.min.css">
 <script defer src="bundle.js"></script></head>
-<body>
-<div class="container">
-    <div class="block block-large">
-        <div id="code"></div>
+<body class="flex flex-col items-center justify-center h-screen p-1">
+<div class="grid grid-cols-5 gap-2 w-full h-full max-h-screen max-w-screen p-2">
+    <div class="col-span-4 bg-custom p-2 rounded overflow-hidden">
+        <div id="code" class="h-full"></div>
     </div>
-    <div class="block block-small-top"></div>
-    <div class="block block-small-bottom">
-        <canvas id="assistantCanvas" width="300" height="600"></canvas>
+    <div class="bg-custom right-column-padding rounded flex items-end justify-center">
+        <canvas id="assistantCanvas" width="300" height="500"></canvas>
     </div>
 </div>
+<script src="dist/main.js"></script>
 </body>
 </html>

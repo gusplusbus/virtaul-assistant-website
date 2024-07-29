@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node": "^20.14.12",
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.0",
@@ -26,9 +27,15 @@
     "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/theme-one-dark": "^6.1.2",
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "@types/codemirror": "^5.60.15",
+    "autoprefixer": "^10.4.19",
+    "axios": "^1.7.2",
     "codemirror": "^6.0.1",
     "html-loader": "^5.1.0",
-    "rxjs": "^7.8.1"
+    "postcss": "^8.4.40",
+    "postcss-loader": "^8.1.1",
+    "rxjs": "^7.8.1",
+    "tailwindcss": "^3.4.7"
   }
 }
