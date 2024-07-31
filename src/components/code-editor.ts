@@ -1,18 +1,21 @@
-import {EditorState} from "@codemirror/state";
-import {javascript} from "@codemirror/lang-javascript";
-import {oneDark} from "@codemirror/theme-one-dark";
-import {EditorView} from "@codemirror/view";
+import { EditorState, StateField } from "@codemirror/state";
+import { javascript } from "@codemirror/lang-javascript";
+import { oneDark } from "@codemirror/theme-one-dark";
+import { EditorView } from "@codemirror/view";
 
-function codeEditor() {
+let editorView: EditorView | null = null; // To store the EditorView instance
+let editorState: EditorState | null = null; // To store the EditorState
+
+export function codeEditor(): void {
     document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('code');
         if (container) {
-            const editorState = EditorState.create({
+            editorState = EditorState.create({
                 doc: "console.log('Hello, world!');",
-                extensions: [javascript(), oneDark] // Removed the empty comma
+                extensions: [javascript(), oneDark]
             });
 
-            new EditorView({
+            editorView = new EditorView({
                 state: editorState,
                 parent: container
             });
@@ -20,5 +23,11 @@ function codeEditor() {
     });
 }
 
-
-export default codeEditor;
+export function updateEditorContent(content: string): void {
+    if (editorView && editorState) {
+        const newState = editorState.update({
+            changes: { from: 0, to: editorState.doc.length, insert: content }
+        });
+        editorView.dispatch(newState);
+    }
+}

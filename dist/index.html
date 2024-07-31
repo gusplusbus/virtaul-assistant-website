@@ -7,16 +7,112 @@
     <link href="https://unpkg.com/tailwindcss@^2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/@codemirror/basic-setup@latest/dist/basic-setup.min.css">
     <link rel="stylesheet" href="https://unpkg.com/@codemirror/theme-one-dark@latest/dist/theme-one-dark.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css">
+    <style>
+        body {
+            background-color: #282c34;
+        }
+
+        #code {
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .cm-editor {
+            font-size: 20px;
+        }
+
+        #assistantCanvas {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .bg-custom {
+            background-color: #282c34;
+        }
+
+        .right-column-padding {
+            padding: 2rem;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar-open {
+            transform: translateX(0);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            width: 80%;
+            max-width: 500px;
+        }
+    </style>
 <script defer src="bundle.js"></script></head>
-<body class="flex flex-col items-center justify-center h-screen p-1">
-<div class="grid grid-cols-5 gap-2 w-full h-full max-h-screen max-w-screen p-2">
-    <div class="col-span-4 bg-custom p-2 rounded overflow-hidden">
-        <div id="code" class="h-full"></div>
+<body class="flex flex-col h-screen p-1">
+<div id="menu" class="w-full"></div>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar fixed left-0 top-0 h-full w-64 bg-blue-800 text-white flex flex-col">
+    <div class="p-4 text-xl font-bold border-b border-blue-700">
+        Virtual Assistant
     </div>
-    <div class="bg-custom right-column-padding rounded flex items-end justify-center">
-        <canvas id="assistantCanvas" width="300" height="500"></canvas>
+    <nav class="flex-1 p-4">
+        <ul>
+            <li class="mb-4">
+                <a href="#" id="openButton" class="flex items-center p-2 rounded hover:bg-blue-700">
+                    <span class="ml-2">Open</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="p-4 border-t border-blue-700">
+        <a href="#" class="flex items-center p-2 rounded hover:bg-blue-700">
+            <span class="material-icons">settings</span>
+            <span class="ml-2">Settings</span>
+        </a>
     </div>
 </div>
-<script src="dist/main.js"></script>
+
+<div class="content">
+    <div>
+        <div class="flex-1 flex flex-row h-full w-full max-h-screen max-w-screen p-2">
+            <div class="flex-1 bg-custom p-2 rounded overflow-hidden">
+                <div id="code" class="h-full"></div>
+            </div>
+            <div class="bg-custom right-column-padding rounded flex items-end justify-center">
+                <canvas id="assistantCanvas" width="300" height="500"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for URL input -->
+<div id="urlModal" class="modal">
+    <div class="modal-content">
+        <h2 class="text-xl mb-4">Enter URL</h2>
+        <input id="urlInput" type="text" class="border p-2 w-full mb-4" placeholder="Enter URL here">
+        <button id="submitButton" class="bg-blue-500 text-white p-2 rounded">Submit</button>
+        <button id="closeButton" class="bg-gray-500 text-white p-2 rounded ml-2">Close</button>
+    </div>
+</div>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </body>
 </html>

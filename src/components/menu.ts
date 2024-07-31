@@ -1,19 +1,34 @@
-import { addHoverEvents } from '../events/hover.event';
+import { toggleSidebar } from './sidebar';
 
 export function menu(): void {
-    const { titleBar, menuDiv, menuContent } = createMenuElements();
-    addHoverEvents(menuDiv, menuContent);
-    addTitleBarHoverEvents(titleBar);
+    const { titleBar, menuDiv } = createMenuElements();
+
     const menuContainer = document.getElementById('menu');
     if (menuContainer) {
         menuContainer.appendChild(titleBar);
     }
+
+    menuDiv.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent click event from propagating to document
+        toggleSidebar();
+    });
+
+    // Listen to mouse movements to hide/show menu based on cursor position
+    document.addEventListener('mousemove', (event) => {
+        const cursorY = event.clientY;
+        const menuRect = titleBar.getBoundingClientRect();
+
+        if (cursorY > menuRect.top && cursorY < menuRect.bottom) {
+            titleBar.style.visibility = 'visible'; // Show menu content
+        } else {
+            titleBar.style.visibility = 'hidden'; // Hide menu content
+        }
+    });
 }
 
 interface MenuElements {
     titleBar: HTMLElement;
     menuDiv: HTMLElement;
-    menuContent: HTMLElement;
 }
 
 export function createMenuElements(): MenuElements {
@@ -27,17 +42,7 @@ export function createMenuElements(): MenuElements {
     menuIcon.className = 'fa fa-bars';
     menuIcon.setAttribute('aria-hidden', 'true');
 
-    const menuContent = document.createElement('div');
-    menuContent.className = 'menu-content absolute hidden bg-gray-700 text-white rounded p-2';
-
-    const openFromGithub = document.createElement('a');
-    openFromGithub.href = '#';
-    openFromGithub.innerText = 'Open';
-    openFromGithub.className = 'block p-2 hover:bg-gray-600';
-
-    menuContent.appendChild(openFromGithub);
     menuDiv.appendChild(menuIcon);
-    menuDiv.appendChild(menuContent);
 
     const recordButton = document.createElement('button');
     recordButton.className = 'bg-red-500 text-white px-4 py-2 rounded';
@@ -46,21 +51,7 @@ export function createMenuElements(): MenuElements {
     titleBar.appendChild(menuDiv);
     titleBar.appendChild(recordButton);
 
-    return { titleBar, menuDiv, menuContent };
-}
-
-function addTitleBarHoverEvents(titleBar: HTMLElement): void {
-    // Show title bar when the mouse moves to the top of the screen
-    document.addEventListener('mousemove', function(e) {
-        if (e.clientY < 50) { // Adjust the value as needed
-            titleBar.style.display = 'flex';
-        }
-    });
-
-    // Hide title bar when mouse leaves the title bar area
-    titleBar.addEventListener('mouseleave', function() {
-        titleBar.style.display = 'none';
-    });
+    return { titleBar, menuDiv };
 }
 
 export default menu;
